@@ -19,7 +19,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Override
     public TransactionStatistics getStatisticsOfLastMinute() {
         TransactionStatistics transactionStatistics = new TransactionStatistics();
-        transactionRepository.getLastComputedTransactions().forEach((key, value) -> {
+        transactionRepository.getLastMinuteComputedTransactions().forEach((key, value) -> {
             if (!value.getTime().isBefore(getLastMinuteTime())) {
                 transactionStatistics.compute(value);
             }

@@ -9,6 +9,6 @@ public interface TransactionRepository {
 
     void compute(Transaction transaction);
 
-    ConcurrentHashMap<Integer, ComputedTransactions> getLastComputedTransactions();
+    ConcurrentHashMap<Integer, ComputedTransactions> getLastMinuteComputedTransactions();
 
 }

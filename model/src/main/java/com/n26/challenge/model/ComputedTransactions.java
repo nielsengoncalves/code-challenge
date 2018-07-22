@@ -1,10 +1,12 @@
 package com.n26.challenge.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@EqualsAndHashCode
 public class ComputedTransactions {
 
     private LocalDateTime time = null;

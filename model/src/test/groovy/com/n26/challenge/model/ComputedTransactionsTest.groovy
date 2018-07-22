@@ -20,7 +20,7 @@ class ComputedTransactionsTest extends Specification {
     def "when adding new transaction to ComputedTransactions, the fields must be updated"() {
         given:
         def computedTransactions = new ComputedTransactions()
-        def currentTime = LocalDateTime.now()
+        def currentTime = LocalDateTime.now().withNano(0)
         def transaction = Transaction.builder()
                 .id(UUID.randomUUID())
                 .amount(10)
@@ -40,7 +40,7 @@ class ComputedTransactionsTest extends Specification {
     def "when adding multiple transactions to ComputedTransactions, the fields must be updated"() {
         given:
         def computedTransactions = new ComputedTransactions()
-        def currentTime = LocalDateTime.now()
+        def currentTime = LocalDateTime.now().withNano(0)
         def minTransaction = Transaction.builder()
                 .id(UUID.randomUUID())
                 .amount(2)

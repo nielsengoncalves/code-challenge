@@ -17,6 +17,7 @@ public class InMemoryTransactionRepositoryImpl implements TransactionRepository 
         Integer index = getHashIndex(transaction);
         ComputedTransactions foundComputedTransactions = computedTransactions.get(index);
 
+        //@Todo: use compute methods to hold the lock
         if (isTransactionMoreRecent(transaction, foundComputedTransactions)) {
             computeNewRecord(transaction, index);
         } else if (isTransactionInTheSameSecond(transaction, foundComputedTransactions)) {
@@ -25,7 +26,7 @@ public class InMemoryTransactionRepositoryImpl implements TransactionRepository 
     }
 
     @Override
-    public ConcurrentHashMap<Integer, ComputedTransactions> getLastComputedTransactions() {
+    public ConcurrentHashMap<Integer, ComputedTransactions> getLastMinuteComputedTransactions() {
         return computedTransactions;
     }
 
