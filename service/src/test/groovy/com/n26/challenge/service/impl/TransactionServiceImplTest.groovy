@@ -8,7 +8,7 @@ import spock.lang.Specification
 
 import java.time.LocalDateTime
 
-import static java.time.ZoneOffset.*
+import static java.time.ZoneOffset.UTC
 
 class TransactionServiceImplTest extends Specification {
 
@@ -19,7 +19,7 @@ class TransactionServiceImplTest extends Specification {
         TimeZone.setDefault(TimeZone.getTimeZone(UTC))
     }
 
-    def "should save the transaction when it happened in the last 60 seconds"() {
+    def "should save the transaction when happened in the last 60 seconds"() {
         given:
         def validTime = LocalDateTime.now(UTC).minusSeconds(59)
         def validTransaction = Transaction.builder().time(validTime).build()
@@ -32,7 +32,7 @@ class TransactionServiceImplTest extends Specification {
         noExceptionThrown()
     }
 
-    def "should not save the transaction it is older than 60 seconds"() {
+    def "should not save the transaction is older than 60 seconds"() {
         given:
         def oldTime = LocalDateTime.now(UTC).minusSeconds(60)
         def oldTransaction = Transaction.builder().time(oldTime).build()
@@ -44,7 +44,7 @@ class TransactionServiceImplTest extends Specification {
         thrown(OldTransactionException)
     }
 
-    def "should not save the transaction it is in the future"() {
+    def "should not save the transaction is in the future"() {
         given:
         def futureTime = LocalDateTime.now(UTC).plusSeconds(1)
         def futureTransaction = Transaction.builder().time(futureTime).build()

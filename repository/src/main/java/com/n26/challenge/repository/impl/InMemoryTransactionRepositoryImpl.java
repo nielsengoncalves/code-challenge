@@ -27,7 +27,7 @@ public class InMemoryTransactionRepositoryImpl implements TransactionRepository 
     }
 
     @Override
-    public ConcurrentHashMap<Integer, ComputedTransactions> getLastMinuteComputedTransactions() {
+    public ConcurrentHashMap<Integer, ComputedTransactions> getComputedTransactions() {
         return computedTransactions;
     }
 

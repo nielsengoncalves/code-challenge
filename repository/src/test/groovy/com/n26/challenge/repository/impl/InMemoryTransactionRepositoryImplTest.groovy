@@ -22,7 +22,7 @@ class InMemoryTransactionRepositoryImplTest extends Specification {
         transactions.forEach { transaction -> repository.compute(transaction) }
 
         when:
-        def computedTransactions = repository.getLastMinuteComputedTransactions()
+        def computedTransactions = repository.getComputedTransactions()
 
         then:
         computedTransactions.size() == 60
@@ -43,7 +43,7 @@ class InMemoryTransactionRepositoryImplTest extends Specification {
 
 
         when:
-        def computedTransactions = repository.getLastMinuteComputedTransactions()
+        def computedTransactions = repository.getComputedTransactions()
 
         then:
         computedTransactions.get(index) == expectedComputedTransaction
@@ -70,7 +70,7 @@ class InMemoryTransactionRepositoryImplTest extends Specification {
         repository.compute(newerTransaction)
 
         when:
-        def computedTransactions = repository.getLastMinuteComputedTransactions()
+        def computedTransactions = repository.getComputedTransactions()
 
         then:
         now.getSecond() % 60 == oldTime.getSecond() % 60
@@ -98,7 +98,7 @@ class InMemoryTransactionRepositoryImplTest extends Specification {
         repository.compute(transaction2)
 
         when:
-        def computedTransactions = repository.getLastMinuteComputedTransactions()
+        def computedTransactions = repository.getComputedTransactions()
 
         then:
         computedTransactions.get(index) == expectedComputedTransaction
