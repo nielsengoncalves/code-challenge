@@ -15,14 +15,15 @@ public class InMemoryTransactionRepositoryImpl implements TransactionRepository 
     @Override
     public void compute(Transaction transaction) {
         Integer index = getHashIndex(transaction);
-        ComputedTransactions foundComputedTransactions = computedTransactions.get(index);
 
-        //@Todo: use compute methods to hold the lock
-        if (isTransactionMoreRecent(transaction, foundComputedTransactions)) {
-            computeNewRecord(transaction, index);
-        } else if (isTransactionInTheSameSecond(transaction, foundComputedTransactions)) {
-            updateFoundRecord(transaction, index, foundComputedTransactions);
-        }
+        computedTransactions.compute(index, (key, record) -> {
+            if (record == null || isTransactionMoreRecent(transaction, record)) {
+                return getNewRecord(transaction);
+            } else if (isTransactionInTheSameSecond(transaction, record)) {
+                return getUpdatedFoundRecord(transaction, record);
+            }
+            return record;
+        });
     }
 
     @Override
@@ -30,19 +31,19 @@ public class InMemoryTransactionRepositoryImpl implements TransactionRepository 
         return computedTransactions;
     }
 
-    private void updateFoundRecord(Transaction transaction, Integer index, ComputedTransactions foundRecord) {
+    private ComputedTransactions getUpdatedFoundRecord(Transaction transaction, ComputedTransactions foundRecord) {
         foundRecord.computeTransaction(transaction);
-        computedTransactions.put(index, foundRecord);
+        return foundRecord;
     }
 
-    private void computeNewRecord(Transaction transaction, Integer index) {
+    private ComputedTransactions getNewRecord(Transaction transaction) {
         ComputedTransactions newRecord = new ComputedTransactions();
         newRecord.computeTransaction(transaction);
-        computedTransactions.put(index, newRecord);
+        return newRecord;
     }
 
-    private Boolean isTransactionMoreRecent(Transaction transaction, ComputedTransactions found) {
-        return found == null || transaction.getTime().isAfter(found.getTime());
+    private Boolean isTransactionMoreRecent(Transaction transaction, ComputedTransactions foundRecord) {
+        return transaction.getTime().isAfter(foundRecord.getTime());
     }
 
     private Boolean isTransactionInTheSameSecond(Transaction transaction, ComputedTransactions found) {
