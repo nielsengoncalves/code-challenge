@@ -83,7 +83,7 @@ Date: Sun, 22 Jul 2018 18:26:25 GMT
 ## Technical Details
 
 ### How thread safe was achieved?
-This solution is thread safe because it relies on native ConcurrentHashMap that locks at bucket level the record being modified. 
+This solution is thread safe because it relies on native ConcurrentHashMap implementation that locks at bucket level the record being modified. 
 So two threads can't modify the same record concurrently.
 
 ### Why this solution is O(1)?
@@ -100,11 +100,3 @@ The spock framework simplify to write unit tests, it makes possible to do mockin
 The groovy language is also less verbose than java, it has a lot of syntax sugar that helps to write tests faster. 
 
 The last but not least is the fact that the spock follows the [AAA pattern](http://wiki.c2.com/?ArrangeActAssert) (Arrange, Act, Assert)
-
-## What's next
- 
-
-
-
-
-
