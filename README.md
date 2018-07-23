@@ -1,4 +1,4 @@
-# N26 Code Challenge
+# Code Challenge
 
 [![Build Status](https://travis-ci.org/nielsenmg/n26-code-challenge.svg?branch=master)](https://travis-ci.org/nielsenmg/n26-code-challenge)
 [![codecov](https://codecov.io/gh/nielsenmg/n26-code-challenge/branch/master/graph/badge.svg)](https://codecov.io/gh/nielsenmg/n26-code-challenge)
