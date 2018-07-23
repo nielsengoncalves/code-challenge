@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
@@ -32,16 +29,7 @@ public class TransactionController implements TransactionApi {
 
     @Override
     public void save(@Valid @RequestBody SaveTransactionRequest request) {
-        Transaction transaction = convertToTransactionModel(request);
-        transactionService.save(transaction);
-    }
-
-    private Transaction convertToTransactionModel(SaveTransactionRequest request) {
-        Transaction transaction = modelMapper.map(request, Transaction.class);
-        Instant instant = Instant.ofEpochMilli(request.getTimestamp());
-        LocalDateTime time = LocalDateTime.ofInstant(instant, TimeZone.getDefault().toZoneId());
-        transaction.setTime(time);
-        return transaction;
+        transactionService.save(modelMapper.map(request, Transaction.class));
     }
 
     @ExceptionHandler({ OldTransactionException.class, FutureTransactionException.class })
