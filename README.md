@@ -1,6 +1,7 @@
 # N26 Code Challenge
 
 [![Build Status](https://travis-ci.org/nielsenmg/n26-code-challenge.svg?branch=master)](https://travis-ci.org/nielsenmg/n26-code-challenge)
+[![codecov](https://codecov.io/gh/nielsenmg/n26-code-challenge/branch/master/graph/badge.svg)](https://codecov.io/gh/nielsenmg/n26-code-challenge)
 
 The problem consists in expose two restful APIs, one for saving the transactions and the other to collect realtime statistic from the last 60 seconds.
 
@@ -89,10 +90,10 @@ This solution is thread safe because it relies on native ConcurrentHashMap imple
 So two threads can't modify the same record concurrently.
 
 ### Why this solution is O(1)?
-This solution is O(1) because it was implemented using a concurrentHashMap that only holds 60 records, 
+This solution is O(1) because it was implemented using a concurrentHashMap that holds only 60 records, 
 one for each second termination. 
 
-The operations does not rely on the number of transactions, the execution time will always be the same. 
+The operations don't rely on the number of transactions inputted, the execution time will always be the same. 
 
 The ConcurrentHashMap is also a Singleton, so it's shared between the requests. 
 
@@ -102,3 +103,6 @@ The spock framework simplify to write unit tests, it makes possible to do mockin
 The groovy language is also less verbose than java, it has a lot of syntax sugar that helps to write tests faster. 
 
 The last but not least is the fact that the spock follows the [AAA pattern](http://wiki.c2.com/?ArrangeActAssert) (Arrange, Act, Assert)
+
+## Known Issues:
+- Code coverage is not considering the integration tests. (The real code coverage is above 95%)
