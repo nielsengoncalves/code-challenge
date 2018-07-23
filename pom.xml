@@ -37,6 +37,7 @@
         <model.mapper.version>2.1.0</model.mapper.version>
         <spock.version>1.1-groovy-2.4</spock.version>
         <cglib.nodep.version>3.2.4</cglib.nodep.version>
+        <jacoco.version>0.8.1</jacoco.version>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +102,11 @@
                 <version>${cglib.nodep.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -115,6 +121,25 @@
                         <goals>
                             <goal>compile</goal>
                             <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
