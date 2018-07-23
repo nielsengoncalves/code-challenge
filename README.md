@@ -1,5 +1,7 @@
 # N26 Code Challenge
 
+[![Build Status](https://travis-ci.org/nielsenmg/n26-code-challenge.svg?branch=master)](https://travis-ci.org/nielsenmg/n26-code-challenge)
+
 The problem consists in expose two restful APIs, one for saving the transactions and the other to collect realtime statistic from the last 60 seconds.
 
 There are some extra key requirements: 
